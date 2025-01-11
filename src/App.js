@@ -17,6 +17,8 @@ import AdminHome from './pages/admin/AdminHome';
 import AddRoom from './pages/admin/AddRoom';
 import AdminRoomList from './pages/admin/AdminRoomList';
 import AdminBookingList from './pages/admin/AdminBookingList';
+import AdminHotelList from './pages/admin/AdminHotelList';
+import AddHotel from './pages/admin/AddHotel';
 
 const App = () => {
   const location = useLocation()
@@ -37,6 +39,8 @@ const App = () => {
         <Route path='/dashboard' element={<AdminHome />} />
         <Route path='/dashboard/addroom' element={<AddRoom />}/>
         <Route path='/dashboard/rooms' element={<AdminRoomList />}/>
+        <Route path='/dashboard/addhotel' element={<AddHotel />}/>
+        <Route path='/dashboard/hotels' element={<AdminHotelList />}/>
         <Route path='/dashboard/booking-list' element={<AdminBookingList />}/>
       </Routes>
       {!location.pathname.includes('dashboard') && <Footer />}

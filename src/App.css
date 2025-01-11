@@ -650,12 +650,14 @@ ul.social-links li {
 ul.social-links li:last-child {
     margin-right: 0;
 }
-.header-main .navbar-brand img{
+
+.header-main .navbar-brand img {
     height: 120px;
     width: 120px;
     object-fit: contain;
 }
-.header-main .nav-link{
+
+.header-main .nav-link {
     background: transparent;
     color: #666;
     font-size: 15px;
@@ -666,7 +668,8 @@ ul.social-links li:last-child {
     transition: all 150ms linear;
     border: none;
 }
-.header-main .nav-btn{
+
+.header-main .nav-btn {
     background-color: #ffa801;
     display: flex;
     align-items: center;
@@ -675,9 +678,11 @@ ul.social-links li:last-child {
     padding-left: 20px !important;
     padding-right: 20px !important;
 }
-.header-main .navbar-nav{
+
+.header-main .navbar-nav {
     gap: 15px;
 }
+
 /* ========================================= */
 /*          Banner CSS        */
 /* ======================================== */
@@ -6961,4 +6966,20 @@ section.events .meta span {
 
 .night-mode section.related-rooms {
     background: #161616;
+}
+
+.img-upload {
+    position: relative;
+    cursor: pointer;
+    border: 2px dashed #ffb606;
+}
+
+.img-upload input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+    opacity: 0 !important;
 }
