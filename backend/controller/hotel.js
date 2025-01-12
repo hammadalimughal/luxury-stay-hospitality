@@ -3,11 +3,12 @@ const Hotel = require('../schema/Hotel')
 const { uploadImage } = require('./upload')
 const router = express.Router()
 
-router.post('/new', uploadImage('image'), async (req, res) => {
+router.post('/new', uploadImage.single('image'), async (req, res) => {
     try {
-        
         const { name, category, keywords, country, address, state, city, zipCode, phone, socials } = req.body
-
+        console.log('req.body: ', req.body)
+        console.log('Image: ', req.file)
+        return
         if (!req.file) {
             return res.json({
                 success: false,

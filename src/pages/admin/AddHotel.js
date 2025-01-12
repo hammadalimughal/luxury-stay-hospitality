@@ -25,12 +25,21 @@ const AddHotel = () => {
     });
 
     useEffect(() => {
-        setFormData({...formData, socials: socialLinks})
+        console.log('formData: ', formData)
+    }, [formData])
+
+    useEffect(() => {
+        setFormData({ ...formData, socials: socialLinks })
     }, [socialLinks])
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSocialChange = (event) => {
+        const { name, value } = event.target;
+        setSocialLinks({ ...socialLinks, [name]: value });
     };
 
     const handleImageUpload = (event) => {
@@ -46,17 +55,23 @@ const AddHotel = () => {
         }
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formToSubmit = new FormData();
-        formToSubmit.append("name", formData.name);
-        formToSubmit.append("email", formData.email);
-        formToSubmit.append("image", formData.image);
-
-        console.log("Form submitted with data:");
-        for (let [key, value] of formToSubmit.entries()) {
-            console.log(key, value);
+        for (const key in formData) {
+            if (formData.hasOwnProperty(key)) {
+                formToSubmit.append(key, formData[key]);
+            }
         }
+        const response = await fetch('/api/hotel/new', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            body: formToSubmit
+        })
+        const result = await response.json()
+        console.log('result', result)
     };
 
     return (
@@ -166,33 +181,27 @@ const AddHotel = () => {
                                         </div>
                                         <div class="col-md-4">
                                             <label>Website <span>(optional)</span></label>
-                                            <input type="text" />
+                                            <input name='website' value={socialLinks.website} onChange={handleSocialChange} type="text" />
                                         </div>
                                         <div class="col-md-4">
                                             <label>E-mail <span>(optional)</span></label>
-                                            <input type="text" />
+                                            <input name='email' value={socialLinks.website} onChange={handleSocialChange} type="text" />
                                         </div>
 
                                     </div>
                                     <div class="row with-forms">
                                         <div class="col-md-4">
                                             <label class="fb-input"><i class="fab fa-facebook"></i> Facebook <span>(optional)</span></label>
-                                            <input type="text" placeholder="https://www.facebook.com/" />
+                                            <input name='facebook' value={socialLinks.website} onChange={handleSocialChange} type="text" placeholder="https://www.facebook.com/" />
                                         </div>
                                         <div class="col-md-4">
-                                            <label class="twitter-input"><i class="fab fa-twitter"></i> Twitter
+                                            <label class="twitter-input"><i class="fab fa-instagram"></i> Instagram
                                                 <span>(optional)</span></label>
-                                            <input type="text" placeholder="https://www.twitter.com/" />
+                                            <input name='instagram' value={socialLinks.instagram} onChange={handleSocialChange} type="text" placeholder="https://www.instagram.com/" />
                                         </div>
-                                        <div class="col-md-4">
-                                            <label class="gplus-input"><i class="fab fa-google-plus"></i> Google Plus
-                                                <span>(optional)</span></label>
-                                            <input type="text" placeholder="https://plus.google.com" />
-                                        </div>
-
                                     </div>
                                 </div>
-                                <a href="#" class="button preview">Submit <i class="fa fa-arrow-circle-right"></i></a>
+                                <button type='submit' class="button preview">Submit <i class="fa fa-arrow-circle-right"></i></button>
                             </div>
                         </form>
                     </div>
