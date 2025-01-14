@@ -3448,7 +3448,12 @@ a.canvasjs-chart-credit{display: none;}
 	font-weight: 600;
 	margin: 0;
 }
-
+.dashboard-list-box .list-box-listing-img img{
+	width: 100%;
+	height: 300px;
+	object-fit: contain;
+	margin-bottom: 15px;
+}
 .dashboard-list-box .button.gray:before { display: none; }
 .dashboard-list-box .button.gray {
 	background-color: #ffa801;

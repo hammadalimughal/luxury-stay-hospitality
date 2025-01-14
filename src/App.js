@@ -19,6 +19,7 @@ import AdminRoomList from './pages/admin/AdminRoomList';
 import AdminBookingList from './pages/admin/AdminBookingList';
 import AdminHotelList from './pages/admin/AdminHotelList';
 import AddHotel from './pages/admin/AddHotel';
+import Toast from './components/Toast';
 
 const App = () => {
   const location = useLocation()
@@ -44,6 +45,7 @@ const App = () => {
         <Route path='/dashboard/booking-list' element={<AdminBookingList />}/>
       </Routes>
       {!location.pathname.includes('dashboard') && <Footer />}
+      <Toast />
     </>
   )
 }

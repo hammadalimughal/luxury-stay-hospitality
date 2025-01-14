@@ -5,10 +5,11 @@ const router = express.Router()
 
 router.post('/new', uploadImage.single('image'), async (req, res) => {
     try {
-        const { name, category, keywords, country, address, state, city, zipCode, phone, socials } = req.body
+        const { name, category, keywords, country, address, state, city, zipCode, phone, description } = req.body
+        const socials = JSON.parse(req.body.socials)
         console.log('req.body: ', req.body)
         console.log('Image: ', req.file)
-        return
+        // return
         if (!req.file) {
             return res.json({
                 success: false,
@@ -17,7 +18,7 @@ router.post('/new', uploadImage.single('image'), async (req, res) => {
         }
 
         const image = `/uploads/${req.file.filename}`
-        const hotel = await Hotel.create({ name, category, keywords, country, address, state, city, zipCode, phone, socials, image })
+        const hotel = await Hotel.create({ name, category, keywords, country, address, state, city, zipCode, phone, description, socials, image })
 
         return res.json({
             success: true,
@@ -32,6 +33,21 @@ router.post('/new', uploadImage.single('image'), async (req, res) => {
             error: error.message
         })
 
+    }
+})
+
+router.post('/fetchAll', async (req, res) => {
+    try {
+        const hotels = await Hotel.find()
+        return res.json({
+            success: true,
+            hotels
+        })
+    } catch (error) {
+        return res.json({
+            success: false,
+            error: error.message
+        })
     }
 })
 

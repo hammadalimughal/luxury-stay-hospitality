@@ -25,11 +25,8 @@ const AddHotel = () => {
     });
 
     useEffect(() => {
-        console.log('formData: ', formData)
-    }, [formData])
+        setFormData({ ...formData, socials: JSON.stringify(socialLinks) })
 
-    useEffect(() => {
-        setFormData({ ...formData, socials: socialLinks })
     }, [socialLinks])
 
     const handleChange = (event) => {
@@ -65,13 +62,33 @@ const AddHotel = () => {
         }
         const response = await fetch('/api/hotel/new', {
             method: 'POST',
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
             body: formToSubmit
         })
         const result = await response.json()
         console.log('result', result)
+        if (result.success) {
+            alert('New Hotel Added Successfully')
+            setFormData({
+                name: "",
+                image: "",
+                category: "",
+                keywords: [],
+                country: "",
+                address: "",
+                state: "",
+                city: "",
+                zipCode: "",
+                phone: "",
+                socials: []
+            })
+            setImagePreview(imagePlaceholder)
+            setSocialLinks({
+                website: "",
+                facebook: "",
+                instagram: "",
+                email: ""
+            })
+        }
     };
 
     return (
@@ -98,13 +115,13 @@ const AddHotel = () => {
                                         <div class="col-md-6">
                                             <label>Category</label>
                                             <select name='category' value={formData.category} onChange={handleChange} class="chosen-select-no-single">
-                                                <option label="blank">Select Category</option>
-                                                <option>Eat &amp; Drink</option>
-                                                <option>Shops</option>
-                                                <option>Hotels</option>
-                                                <option>Restaurants</option>
-                                                <option>Fitness</option>
-                                                <option>Events</option>
+                                                <option value='Luxury'>Luxury</option>
+                                                <option value='Budget'>Budget</option>
+                                                <option value='Boutique'>Boutique</option>
+                                                <option value='Business'>Business</option>
+                                                <option value='Resort'>Resort</option>
+                                                <option value='Hostel'>Hostel</option>
+                                                <option value='Apartment'>Apartment</option>
                                             </select>
                                         </div>
                                         <div class="col-md-6">

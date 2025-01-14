@@ -6983,3 +6983,13 @@ section.events .meta span {
     cursor: pointer;
     opacity: 0 !important;
 }
+
+/* .toast-container{
+    position: fixed;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    right: 30px;
+    bottom: 30px;
+} */
