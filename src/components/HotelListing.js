@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const HotelListing = () => {
     const [hotels, setHotels] = useState([])
@@ -10,7 +11,14 @@ const HotelListing = () => {
             // },
         })
         const result = await response.json()
+        const {success,hotels,errro} = result
+        if(success){
+            setHotels(hotels)
+        }
     }
+    useEffect(()=>{
+        fetchHotels()
+    },[])
     return (
         <section className='py-5'>
             <div className="container">
@@ -46,7 +54,7 @@ const HotelListing = () => {
                                         </div>
                                         <p>{item.address}</p>
                                         <div className="room-btns">
-                                            <a href="#" className="btn btn-black mar-right-10">VIEW DETAILS</a>
+                                            <Link to={`/hotel/${item._id}`} className="btn btn-black mar-right-10">VIEW Rooms</Link>
                                             {/* <a href="#" className="btn btn-orange">BOOK NOW</a> */}
                                         </div>
                                     </div>

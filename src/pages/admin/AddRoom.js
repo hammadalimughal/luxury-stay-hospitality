@@ -45,19 +45,21 @@ const AddRoom = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formToSubmit = new FormData();
-        
+
         for (const key in formData) {
             if (formData.hasOwnProperty(key)) {
                 formToSubmit.append(key, formData[key]);
             }
         }
 
-        const response = await fetch('/api/hotel/new', {
+        const response = await fetch('/api/room/new', {
             method: 'POST',
             body: formToSubmit
         })
+
         const result = await response.json()
         console.log('result', result)
+
         if (result.success) {
             alert('New Room Added Successfully')
             setFormData({
@@ -66,10 +68,11 @@ const AddRoom = () => {
                 number: "",
                 hotel: "",
                 price: "",
+                description: "",
                 image: null
             })
             setImagePreview(imagePlaceholder)
-        }else{
+        } else {
             alert(result.error)
         }
     }
@@ -116,10 +119,13 @@ const AddRoom = () => {
                                             </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label>price </label>
+                                            <label>Price </label>
                                             <input type="number" name='price' onChange={handleChange} value={formData.price} />
                                         </div>
-
+                                        <div className="col-12">
+                                            <label>Description</label>
+                                            <textarea name='description' onChange={handleChange} value={formData.description}></textarea>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="add-listing-section">
@@ -131,7 +137,6 @@ const AddRoom = () => {
                                         <input accept="image/jpeg, image/png, image/gif, image/webp" onChange={handleImageUpload} type="file" name="" id="hotel-image" />
                                     </label>
                                 </div>
-
                                 <button type='submit' class="button preview">Submit <i class="fa fa-arrow-circle-right"></i></button>
                             </div>
                         </form>

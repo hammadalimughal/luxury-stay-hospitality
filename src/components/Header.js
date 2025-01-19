@@ -15,10 +15,10 @@ const Header = () => {
             title: 'Hotels',
             link: '/hotels'
         },
-        {
-            title: 'Rooms',
-            link: '/rooms'
-        },
+        // {
+        //     title: 'Rooms',
+        //     link: '/rooms'
+        // },
         {
             title: 'Contact Us',
             link: '/contact-us'
