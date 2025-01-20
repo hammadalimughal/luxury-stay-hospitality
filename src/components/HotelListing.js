@@ -45,7 +45,7 @@ const HotelListing = () => {
                                         <div className="room-services mar-bottom-15">
                                             <div className="row">
                                                 <div className="col-md-6 col-sm-6 col-xs-6">
-                                                    <i className="fa fa-bed" aria-hidden="true"></i> 3 Rooms
+                                                    <i className="fa fa-bed" aria-hidden="true"></i> {item.roomCount} Rooms
                                                 </div>
                                                 <div className="col-md-6 col-sm-6 col-xs-6">
                                                     <i className="fa fa-wifi" aria-hidden="true"></i> Quick Service

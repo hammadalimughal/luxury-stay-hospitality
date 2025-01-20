@@ -6986,6 +6986,29 @@ section.events .meta span {
     opacity: 0 !important;
 }
 
+.availablity-calendar {
+    width: 100% !important;
+}
+
+.availablity-calendar .react-calendar__month-view__days__day {
+    padding-left: 1px;
+    line-height: 0.9;
+    font-size: 15px;
+    color: #000;
+    text-align: center;
+    line-height: 2;
+    font-family: "Montserrat";
+}
+.react-calendar__tile:disabled {
+    background-color: #fff !important;
+    border-color: #f0f0f0;
+    color: #999 !important;
+}
+.react-calendar__tile--active{
+    background-color: #ffb606 !important;
+    color: #fff !important;
+}
+
 /* .toast-container{
     position: fixed;
     z-index: 99999;

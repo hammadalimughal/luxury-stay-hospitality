@@ -37,8 +37,6 @@ const AdminHotelList = () => {
                                                         <span>{item.city}, {item.state}, {item.country}</span>
                                                         <p>{item.description}</p>
                                                     </div>
-                                                    <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i> Edit</a>
-                                                    <a href="#" class="button gray"><i class="sl sl-icon-close"></i> Delete</a>
                                                 </div>
 
                                             </div>

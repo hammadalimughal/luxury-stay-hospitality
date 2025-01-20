@@ -4909,21 +4909,22 @@ a.close-list-item {
 /*Dashboard Booking*/
 .booking-table td{
 	font-weight: 500;
+	vertical-align: middle;
 }
-.booking-table span.t-box{
+.booking-table .t-box{
 	color: #fff;
 	background: #ccc;
 	padding: 8px 15px;
 	border: 1px solid #ccc;
 	border-radius: 30px;
 }
-.booking-table span.paid,
-.booking-table span.approved{
+.booking-table .paid,
+.booking-table .approved{
 	background: #468c21;
 	border-color: #468c21;
 }
-.booking-table span.unpaid,
-.booking-table span.cancel{
+.booking-table .unpaid,
+.booking-table .cancel{
 	background: #D60D45;
 	border-color: #D60D45;
 }

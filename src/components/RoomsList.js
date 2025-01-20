@@ -30,11 +30,10 @@ const RoomsList = () => {
                 <div className="row justify-content-center">
                     <div className="col-lg-9 col-12">
                         <div class="list-content">
-                            <div class="list-grid">
+                            {(loading || rooms.length > 0) ? <div class="list-grid">
                                 {rooms.map((item, ind) => {
                                     return (
-
-                                        <div class="room-grid">
+                                        <div class="room-grid" key={ind}>
                                             <div class="grid-image">
                                                 <img src={item.image} alt={item.title} />
                                             </div>
@@ -55,14 +54,15 @@ const RoomsList = () => {
                                                 </div>
 
                                                 <div class="grid-btn mar-top-20">
-                                                    <Link to="/room-detail" class="btn btn-black mar-right-10">VIEW DETAILS</Link>
-                                                    <a href="#" class="btn btn-orange">BOOK NOW</a>
+                                                    <Link to={`/room-availablity/${item._id}`} class="btn btn-black mar-right-10">VIEW Availablity</Link>
+                                                    {/* <a href="#" class="btn btn-orange">BOOK NOW</a> */}
                                                 </div>
                                             </div>
                                         </div>
                                     )
                                 })}
-                            </div>
+                            </div>: <h3 className='text-center'>No <span>Rooms</span> Found</h3>}
+                            
                         </div>
                         {/* <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-end">

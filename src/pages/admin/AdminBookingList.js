@@ -1,7 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SideMenu from '../../components/admin/SideMenu'
 
 const AdminBookingList = () => {
+    const [bookings, setBookings] = useState([])
+    const fetchAllBooking = async (e) => {
+        const response = await fetch('/api/booking/fetchAll', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        const result = await response.json()
+        console.log('result', result)
+        const { success, bookings, error } = result
+        if (success) {
+            setBookings(bookings)
+        } else {
+            alert(error)
+        }
+    }
+
+
+
+    const handlePaymentStatus = async (e) => {
+        const value = e.target.value === "true";
+        const bookingId = e.target.getAttribute('data-id')
+        const response = await fetch('/api/booking/payment', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: bookingId, paid: value })
+        })
+        const result = await response.json()
+        console.log(result)
+        const { success, error } = result
+        if (success) {
+            e.target.classList.remove("paid", "unpaid");
+            if (value) {
+                e.target.classList.add("paid");
+            } else {
+                e.target.classList.add("unpaid");
+            }
+        } else {
+            alert(error)
+        }
+    };
+    useEffect(() => {
+        fetchAllBooking()
+    }, [])
     return (
         <>
             <SideMenu />
@@ -11,152 +58,36 @@ const AdminBookingList = () => {
                         <div class="dashboard-list-box">
                             <h4 class="gray">All Bookings</h4>
                             <div class="table-box">
-                                <table class="basic-table booking-table">
+                                <table class="basic-table booking-table w-100">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
                                             <th>Date</th>
-                                            <th>Booking ID</th>
-                                            <th>Destination</th>
-                                            <th>No of Tickets</th>
+                                            <th>Guest Email</th>
+                                            <th>Hotel</th>
+                                            <th>Room</th>
                                             <th>Payment</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Ricky Ponting</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C253</td>
-                                            <td>Greece - Zakynthos</td>
-                                            <td>7</td>
-                                            <td><span class="paid t-box">Paid</span></td>
-
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Micheal</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C023</td>
-                                            <td>Bulgary - Sunny Beach</td>
-                                            <td>2</td>
-                                            <td><span class="unpaid t-box">Unpaid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jim Morrison</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">E453</td>
-                                            <td>Washington</td>
-                                            <td>11</td>
-                                            <td><span class="paid t-box">Paid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michelle</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C253</td>
-                                            <td>Tokyo, Japan</td>
-                                            <td>3</td>
-                                            <td><span class="paid t-box">Paid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ricky Ponting</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C253</td>
-                                            <td>Brussels</td>
-                                            <td>7</td>
-                                            <td><span class="unpaid t-box">Unpaid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ricky Ponting</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C253</td>
-                                            <td>Greece - Zakynthos</td>
-                                            <td>7</td>
-                                            <td><span class="paid t-box">Paid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Micheal</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C023</td>
-                                            <td>Bulgary - Sunny Beach</td>
-                                            <td>2</td>
-                                            <td><span class="unpaid t-box">Unpaid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jim Morrison</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">E453</td>
-                                            <td>Washington</td>
-                                            <td>11</td>
-                                            <td><span class="paid t-box">Paid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michelle</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C253</td>
-                                            <td>Tokyo, Japan</td>
-                                            <td>3</td>
-                                            <td><span class="paid t-box">Paid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ricky Ponting</td>
-                                            <td>2019/01/18</td>
-                                            <td class="t-id">C253</td>
-                                            <td>Brussels</td>
-                                            <td>7</td>
-                                            <td><span class="unpaid t-box">Unpaid</span></td>
-                                            <td>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-pencil"></i></a>
-                                                <a href="#" class="button gray"><i class="sl sl-icon-close"></i></a>
-                                            </td>
-                                        </tr>
+                                        {bookings.map((item, ind) => {
+                                            return (
+                                                <tr>
+                                                    <td>{new Date(item.date).toDateString()}</td>
+                                                    <td><a href={'mailto:' + item.user.email}>{item.user.email}</a></td>
+                                                    <td>{item.room.hotel.name}</td>
+                                                    <td class="t-id">{item.room.number}</td>
+                                                    <td>
+                                                        <select className={'t-box ' + (item.paid ? 'paid' : 'unpaid')} data-id={item._id} onChange={handlePaymentStatus} name="">
+                                                            <option value="true" selected={item.paid}>Paid</option>
+                                                            <option value="false" selected={!item.paid}>Un Paid</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="pagination-container">
-                            <nav class="pagination">
-                                <ul>
-                                    <li><a href="#" class="current-page">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#"><i class="sl sl-icon-arrow-right"></i></a></li>
-                                </ul>
-                            </nav>
                         </div>
                     </div>
                 </div>

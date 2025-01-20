@@ -38,7 +38,22 @@ router.post('/new', uploadImage.single('image'), async (req, res) => {
 
 router.post('/fetchAll', async (req, res) => {
     try {
-        const hotels = await Hotel.find()
+        const hotels = await Hotel.aggregate([
+            {
+                $lookup: {
+                    from: "rooms", // The collection name for rooms
+                    localField: "_id",
+                    foreignField: "hotel",
+                    as: "rooms",
+                },
+            },
+            {
+                $addFields: {
+                    roomCount: { $size: "$rooms" }, // Count the number of rooms
+                },
+            }
+        ]);
+        console.log('hotels',hotels)
         return res.json({
             success: true,
             hotels

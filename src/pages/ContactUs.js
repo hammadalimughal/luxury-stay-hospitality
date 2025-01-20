@@ -1,7 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import InnerBanner from '../components/InnerBanner'
 
 const ContactUs = () => {
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        message: ""
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+        })
+        const result = await response.json()
+        console.log('result', result)
+        const { success, error } = result
+        if (success) {
+            alert('Form Submitted Successfully')
+            setFormData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phone: "",
+                message: ""
+            })
+        } else {
+            alert(error)
+        }
+    }
+
     return (
         <>
             <InnerBanner title={'Contact Us'} breadCrumps={[{ title: 'Home', link: '/' }, { title: 'Contact', current: true }]} />
@@ -68,21 +107,21 @@ const ContactUs = () => {
 
                                     <div id="contactform-error-msg"></div>
 
-                                    <form method="post" action="#" name="contactform" id="contactform">
+                                    <form onSubmit={handleSubmit}>
                                         <div class="form-group">
-                                            <input type="text" name="first_name" class="form-control" id="fname" placeholder="First Name" />
+                                            <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} class="form-control" id="fname" placeholder="First Name" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="last_name" class="form-control" id="lname" placeholder="Last Name" />
+                                            <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} class="form-control" id="lname" placeholder="Last Name" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" name="email" class="form-control" id="email" placeholder="Email" />
+                                            <input type="email" name="email" value={formData.email} onChange={handleChange} class="form-control" id="email" placeholder="Email" />
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" name="phone" class="form-control" id="phnumber" placeholder="Phone" />
+                                            <input type="text" name="phone" value={formData.phone} onChange={handleChange} class="form-control" id="phnumber" placeholder="Phone" />
                                         </div>
                                         <div class="textarea">
-                                            <textarea name="comments" placeholder="Enter a message"></textarea>
+                                            <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Enter a message"></textarea>
                                         </div>
                                         <div class="comment-btn text-right">
                                             <input type="submit" class="btn btn-orange" id="submit" value="Send Message" />

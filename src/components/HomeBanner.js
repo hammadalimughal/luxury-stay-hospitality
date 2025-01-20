@@ -23,7 +23,7 @@ const HomeBanner = () => {
             <div className="overlay"></div>
         </div>
 
-        <div className="banner-form form-style-1">
+        {/* <div className="banner-form form-style-1">
             <div className="container">
                 <div className="form-content text-center">
                     <div className="table-item">
@@ -90,7 +90,7 @@ const HomeBanner = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */}
     </section>      
     </div>
   )
