@@ -21,6 +21,12 @@ const RoomAvailablity = () => {
   //   new Date(2025, 0, 25).toDateString(), // Jan 25, 2025
   // ];
 
+  useEffect(()=>{
+    if(!userData?.email){
+      navigate('/login')
+    }
+  },[userData])
+
   useEffect(() => {
     setFormData({ room: id, date: selectedDate, user: userData?._id })
   }, [id, userData, selectedDate])

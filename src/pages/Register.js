@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import { userContext } from '../context/User'
+import { isValidEmail, isValidName, isValidPhone } from '../helper/validation'
 
 const Register = () => {
     const { setAuthToken } = useContext(userContext)
@@ -18,6 +19,26 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if (!isValidName(formData.firstName)) {
+            alert(`Enter Valid First Name`)
+            return
+        }
+        if (!isValidName(formData.lastName)) {
+            alert(`Enter Valid Last Name`)
+            return
+        }
+        if (!isValidEmail(formData.email)) {
+            alert(`Enter Valid Email Address`)
+            return
+        }
+        if (!isValidPhone(formData.phone)) {
+            alert(`Enter Valid Phone Number`)
+            return
+        }
+        if (formData.password.length < 8) {
+            alert('Enter valid password of 8 or more characters')
+            return
+        }
         const response = await fetch('/api/auth/register', {
             method: 'POST',
             headers: {
@@ -69,7 +90,7 @@ const Register = () => {
                                     </div>
                                     <div className="col-12">
                                         <div class="form-group">
-                                            <input type="password" onChange={handleChange} value={formData.password} name="password" class="form-control" placeholder="Phone" />
+                                            <input type="password" onChange={handleChange} value={formData.password} name="password" class="form-control" placeholder="Password" />
                                         </div>
                                     </div>
                                     <div className="col-12">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import InnerBanner from '../components/InnerBanner'
+import { isValidEmail, isValidName, isValidPhone, isValidMsg } from '../helper/validation'
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
@@ -17,6 +18,27 @@ const ContactUs = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        e.preventDefault()
+        if (!isValidName(formData.firstName)) {
+            alert(`Enter Valid First Name`)
+            return
+        }
+        if (!isValidName(formData.lastName)) {
+            alert(`Enter Valid Last Name`)
+            return
+        }
+        if (!isValidEmail(formData.email)) {
+            alert(`Enter Valid Email Address`)
+            return
+        }
+        if (!isValidPhone(formData.phone)) {
+            alert(`Enter Valid Phone Number`)
+            return
+        }
+        if (!isValidMsg(formData.message)) {
+            alert(`Enter Valid Message`)
+            return
+        }
         const response = await fetch('/api/contact', {
             method: 'POST',
             headers: {

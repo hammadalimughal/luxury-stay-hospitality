@@ -1,6 +1,7 @@
 const express = require('express')
 const Hotel = require('../schema/Hotel')
 const { uploadImage } = require('./upload')
+const Room = require('../schema/Room')
 const router = express.Router()
 
 router.post('/new', uploadImage.single('image'), async (req, res) => {
@@ -36,6 +37,23 @@ router.post('/new', uploadImage.single('image'), async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        await Hotel.findByIdAndDelete(id)
+        const result = await Room.deleteMany({ hotel: id });
+        return res.json({
+            success: true,
+            message: `Hotel and ${result.deletedCount} rooms deleted successfully.`,
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
 router.post('/fetchAll', async (req, res) => {
     try {
         const hotels = await Hotel.aggregate([
@@ -53,7 +71,7 @@ router.post('/fetchAll', async (req, res) => {
                 },
             }
         ]);
-        console.log('hotels',hotels)
+        console.log('hotels', hotels)
         return res.json({
             success: true,
             hotels

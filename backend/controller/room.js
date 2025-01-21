@@ -43,11 +43,26 @@ router.post('/fetchAllRooms', async (req, res) => {
     }
 })
 
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params
+        await Room.findByIdAndDelete(id)
+        res.json({
+            success: true
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            error: error.message
+        })
+    }
+})
+
 router.post('/fetchHotelRooms', async (req, res) => {
     try {
         const { id } = req.body
-        console.log('id',id)
-        const rooms = await Room.find({hotel: id}).populate('hotel')
+        console.log('id', id)
+        const rooms = await Room.find({ hotel: id }).populate('hotel')
         res.json({
             success: true,
             rooms

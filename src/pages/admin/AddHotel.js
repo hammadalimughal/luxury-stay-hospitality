@@ -88,6 +88,8 @@ const AddHotel = () => {
                 instagram: "",
                 email: ""
             })
+        }else{
+            alert(result.error)
         }
     };
 

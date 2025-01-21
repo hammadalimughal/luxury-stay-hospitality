@@ -16,6 +16,33 @@ const AdminHotelList = () => {
     useEffect(() => {
         fetchHotels()
     }, [])
+    const deleteHotel = async (id) => {
+        /* eslint-disable no-restricted-globals */
+        const confirmation = confirm("Do you want to delete this Hotel and all it's Room?");
+        /* eslint-enable no-restricted-globals */
+        if (confirmation) {
+            try {
+                const response = await fetch(`/api/hotel/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(result.message);
+                    fetchHotels();
+                } else {
+                    alert(`Failed to delete Hotel: ${result.error || "Unknown error"}`);
+                }
+            } catch (error) {
+                console.error("Error deleting Hotel:", error);
+                alert("An error occurred while trying to delete the room.");
+            }
+        }
+    }
     return (
         <>
             <SideMenu />
@@ -37,6 +64,7 @@ const AdminHotelList = () => {
                                                         <span>{item.city}, {item.state}, {item.country}</span>
                                                         <p>{item.description}</p>
                                                     </div>
+                                                    <button onClick={() => deleteHotel(item._id)} class="button gray"><i class="sl sl-icon-close"></i> Delete</button>
                                                 </div>
 
                                             </div>
